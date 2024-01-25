@@ -31,5 +31,8 @@ Follow the example in And to see how waveforms are generated. This example gener
 
 There is nothing very fancy in the code - just copy it and use it in your own simulations to get waveform output. The `dump()` function should be called once every clock cycle / every time the circuit is evaluated.
 
-CICD
+# Continous Integration/Development
 
+CI/CD is Continous Integration / Continous Development. GitHub Actions is a tool to implement this. The idea is to automate testing every time changes are made on GitHub - e.g., whenever a new pull request is set up, CICD will kick in to test the code before it can be merged.
+
+See the file in `.github/workflows/makefile.yml`. It basically runs the long `docker` command, which essentially ends up calling make on this repository.
