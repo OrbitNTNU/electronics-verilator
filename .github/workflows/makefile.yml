@@ -14,5 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install tools
+      run: sudo apt install verilator
+
     - name: Test
       run: make clean all
