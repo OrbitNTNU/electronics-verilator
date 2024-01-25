@@ -14,8 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install tools
+    - name: Docker test
       run: docker run -v ${PWD}:/work --user $(id -u):$(id -g) -e CCACHE_DIR=/work/.ccache --entrypoint make verilator/verilator:stable
-
-    - name: Test
-      run: make clean all
