@@ -14,7 +14,7 @@ $(VERILATOR_EXE): lint | $(SOURCES)
 	verilator $(VERILATOR_ARGS) $(SIMFILES) $(SOURCES) > /dev/null
 
 run: $(VERILATOR_EXE)
-	@set -o pipefail; ./$(VERILATOR_EXE) | tee output.txt; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
+	./$(VERILATOR_EXE) | tee output.txt; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
 
 clean:
 	rm -rf obj_dir
