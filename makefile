@@ -1,5 +1,8 @@
-MAKEFILESS := $(shell find examples -mindepth 1 -name makefile)
-TEST_FOLDERS := $(subst makefile,, $(MAKEFILESS))
+# Override this to use the makefile for other projects too
+SEARCH ?= examples
+
+MAKES := $(shell find $(SEARCH) -mindepth 1 -name makefile)
+TEST_FOLDERS := $(subst makefile,, $(MAKES))
 
 all: run
 
