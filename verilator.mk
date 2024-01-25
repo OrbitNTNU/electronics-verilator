@@ -14,8 +14,12 @@ $(VERILATOR_EXE): lint | $(SOURCES)
 	verilator $(VERILATOR_ARGS) $(SIMFILES) $(SOURCES) > /dev/null
 
 run: $(VERILATOR_EXE)
-	./$(VERILATOR_EXE) | tee output.txt; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
+	# https://stackoverflow.com/questions/17757039/equivalent-of-pipefail-in-dash-shell
+	@mkfifo named_pipe
+	@tee output.txt < named_pipe &
+	@./$(VERILATOR_EXE) > named_pipe; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
+	@rm named_pipe
 
 clean:
-	rm -rf obj_dir
-
+	@rm -rf obj_dir
+	@rm -f named_pipe
