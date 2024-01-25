@@ -1,2 +1,3 @@
 examples/**/obj_dir
 examples/**/*.txt
+examples/**/*.vcd
