@@ -4,6 +4,7 @@ TEST_FOLDERS := $(subst makefile,, $(MAKEFILESS))
 all: run
 
 run:
+	set -e && \
 	for test in $(TEST_FOLDERS) ; do \
 		make -C $$test all ; \
 	done

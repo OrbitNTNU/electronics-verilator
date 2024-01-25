@@ -18,7 +18,8 @@ run: $(VERILATOR_EXE)
 	@mkfifo named_pipe
 	@tee output.txt < named_pipe &
 	@./$(VERILATOR_EXE) > named_pipe; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
+	@rm named_pipe
 
 clean:
-	rm -rf obj_dir
-
+	@rm -rf obj_dir
+	@rm -f named_pipe
