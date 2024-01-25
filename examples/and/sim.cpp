@@ -13,8 +13,6 @@ int main(int argc, char** argv) {
     contextp->commandArgs(argc, argv);
     VAnd* top = new VAnd{contextp};
 
-    return 1;
-
     // For waveform generation
     unsigned long tickcount = 0;
     Verilated::traceEverOn(true);
