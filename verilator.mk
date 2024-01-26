@@ -13,8 +13,8 @@ lint: $(SOURCES)
 $(VERILATOR_EXE): lint | $(SOURCES)
 	verilator $(VERILATOR_ARGS) $(SIMFILES) $(SOURCES) > /dev/null
 
+# https://stackoverflow.com/questions/17757039/equivalent-of-pipefail-in-dash-shell
 run: $(VERILATOR_EXE)
-	# https://stackoverflow.com/questions/17757039/equivalent-of-pipefail-in-dash-shell
 	@mkfifo named_pipe
 	@tee output.txt < named_pipe &
 	@./$(VERILATOR_EXE) > named_pipe; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
