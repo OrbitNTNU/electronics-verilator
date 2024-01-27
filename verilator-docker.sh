@@ -10,23 +10,8 @@
 # Pull newest image 
 docker pull verilator/verilator:4.038 > /dev/null
 
-# Get id of container
-id=$(docker ps -aqf "name=verilator")
-
-# When no user is specified, the default user is root. This makes it so files
-# created by docker are owned by root, which we do not want. The solution is to
-# add a user identical to ourselves in the docker environment. The three following
-# lines do this.
-# 
-# Solution found here: 
-# https://stackoverflow.com/questions/67995208/docker-username-interactive-result-in-i-have-no-name-error
-
-docker cp $id:/etc/passwd /tmp > /dev/null
-echo "orbit:x:""$(id -u)"":""$(id -g)""orbit:/tmp:/bin/bash" >> /tmp/passwd
-docker cp /tmp/passwd $id:/etc/passwd > /dev/null
-
-# Get the directory this script is located
-root_dir=$(realpath $3)
+# Get the project root
+project_root=$(realpath $3)
 
 # Run the docker image with the user we "made" above
-docker run -e CCACHE_DIR=/work/.ccache -ti -v ${root_dir}:/work -w /work/$2 --user $(id -u):$(id -g) verilator/verilator:$1 "${@:4}"
+docker run -e CCACHE_DIR=/work/.ccache -ti -v ${project_root}:/work -w /work/$2 --user $(id -u):$(id -g) verilator/verilator:$1 "${@:4}"
