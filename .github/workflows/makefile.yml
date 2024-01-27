@@ -15,4 +15,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Docker test
-      run: make
+      run: |
+        /usr/bin/bash --version
+        /bin/bash --version
+        make
