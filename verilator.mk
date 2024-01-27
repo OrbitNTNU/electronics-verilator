@@ -1,23 +1,30 @@
+MODULE_FOLDER ?= examples
+PROJECT_ROOT ?= ${VERILATOR_ROOT}
 
-VERILATOR_EXE := obj_dir/V$(PROJECT_NAME)
+# Find the path between the top level folder and the source code folder
+PATH_FROM_ROOT_TO_SRC = $(shell p=$(shell pwd); g=$${p\#\#*/${MODULE_FOLDER}}; echo $$g)
 
+VERILATOR := $(VERILATOR_ROOT)/verilator-docker.sh 
+VERILATOR_ARGS := 4.038 ${MODULE_FOLDER}${PATH_FROM_ROOT_TO_SRC} ${PROJECT_ROOT}
+VERILATOR_ARGS_LINT     := --lint-only -Wall
+VERILATOR_ARGS_EMULATOR := --cc --build --exe --trace
+
+VERILATOR_EMULATOR := obj_dir/V$(PROJECT_NAME)
 PARSER ?= $(VERILATOR_ROOT)/default_parser.sh
-
-VERILATOR_ARGS += --cc --build --exe --trace
 
 all: run
 
-lint: $(SOURCES)
-	verilator --lint-only -Wall $^ --top-module $(PROJECT_NAME)
+lint: $(SOURCES) $(GENERATED)
+	./$(VERILATOR) $(VERILATOR_ARGS) $(VERILATOR_ARGS_LINT) $(SOURCES) --top-module $(PROJECT_NAME)
 
-$(VERILATOR_EXE): lint | $(SOURCES)
-	verilator $(VERILATOR_ARGS) $(SIMFILES) $(SOURCES) > /dev/null
+$(VERILATOR_EMULATOR): lint | $(SOURCES) $(GENERATED)
+	./$(VERILATOR) $(VERILATOR_ARGS) $(VERILATOR_ARGS_EMULATOR) $(SIMFILES) $(SOURCES)
 
 # https://stackoverflow.com/questions/17757039/equivalent-of-pipefail-in-dash-shell
-run: $(VERILATOR_EXE)
+run: $(VERILATOR_EMULATOR)
 	@mkfifo named_pipe
 	@tee output.txt < named_pipe &
-	@./$(VERILATOR_EXE) > named_pipe; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
+	@./$(VERILATOR_EMULATOR) > named_pipe; ./$(PARSER) $(PROJECT_NAME) $$? output.txt
 	@rm named_pipe
 
 clean:

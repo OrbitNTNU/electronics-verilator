@@ -2,29 +2,11 @@
 
 The main contribution of this project is the `verilator.mk` makefile. Include it in your own project in the same manner as seen in the examples.
 
-# Usage
-
-[Docker](https://www.docker.com/) should be used to run the examples. Run the command
-
-`docker run -e CCACHE_DIR=/work/.ccache -ti -v $(pwd):/work --entrypoint bash --hostname verilator-env verilator/verilator:4.038`
-
-or a similar one to enter the container. It should be run from the root of this repository. The first time this is run, it will download a docker image which gives information on which programs and their versions to use. After that, it will jump into the image.
-
-The purpose of this is to ensure we always run the same programs for our code. In the case of `verilator`, it is not very backward-compatible between versions, so Docker is very useful here.
-
-Inside the docker environment, run `make` to run the tests.
-
-## The docker command explained
-
-1. `-e CCACHE_DIR=/work/.ccache`: Verilator uses ccache which defaults to a location outside the container. We override it with an environment variable here.
-2. `--entrypoint bash`: Stops Docker from running verilator once and exiting.
-3. `verilator/verilator:4.038`: The Verilator version we want to use.
-
 # Examples
 
 The examples show how Verilator can be used to simualate a Verilog circuit. Feel free to add more examples and tests for them.
 
-All examples can be run using the `makefile` at the top level of this repository.
+All examples can be run using the `makefile` at the top level of this repository. Simply type `make` to run the makefile.
 
 ## And
 
