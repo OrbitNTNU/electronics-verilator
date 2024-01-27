@@ -1,7 +1,12 @@
 MODULE_FOLDER ?= examples
 PROJECT_ROOT ?= ${VERILATOR_ROOT}
 
+SHELL := /bin/bash
+
 # Find the path between the top level folder and the source code folder
+# Just doing ${MODULE_FOLDER}/${PROJECT_NAME} is not sufficient, because there
+# might be folders between the module folder and project folder. Like in the
+# Hierachy example.
 PATH_FROM_ROOT_TO_SRC = $(shell p=$(shell pwd); g=$${p\#\#*/${MODULE_FOLDER}}; echo $$g)
 
 VERILATOR := $(VERILATOR_ROOT)/verilator-docker.sh
