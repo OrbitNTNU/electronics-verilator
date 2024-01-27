@@ -4,7 +4,7 @@ PROJECT_ROOT ?= ${VERILATOR_ROOT}
 # Find the path between the top level folder and the source code folder
 PATH_FROM_ROOT_TO_SRC = $(shell p=$(shell pwd); g=$${p\#\#*/${MODULE_FOLDER}}; echo $$g)
 
-VERILATOR := $(VERILATOR_ROOT)/verilator-docker.sh 
+VERILATOR := $(VERILATOR_ROOT)/verilator-docker.sh
 VERILATOR_ARGS := 4.038 ${MODULE_FOLDER}${PATH_FROM_ROOT_TO_SRC} ${PROJECT_ROOT}
 VERILATOR_ARGS_LINT     := --lint-only -Wall
 VERILATOR_ARGS_EMULATOR := --cc --build --exe --trace

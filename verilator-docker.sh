@@ -14,4 +14,4 @@ docker pull verilator/verilator:4.038 > /dev/null
 project_root=$(realpath $3)
 
 # Run the docker image with the user we "made" above
-docker run -e CCACHE_DIR=/work/.ccache -ti -v ${project_root}:/work -w /work/$2 --user $(id -u):$(id -g) verilator/verilator:$1 "${@:4}"
+docker run -e CCACHE_DIR=/work/.ccache -v ${project_root}:/work -w /work/$2 --user $(id -u):$(id -g) verilator/verilator:$1 "${@:4}"
