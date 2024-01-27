@@ -3,11 +3,14 @@ PROJECT_ROOT ?= ${VERILATOR_ROOT}
 
 SHELL := /bin/bash
 
+# Hashtag is a comment in make, but we want to use it in shell commands
+HASHTAG := \#
+
 # Find the path between the top level folder and the source code folder
 # Just doing ${MODULE_FOLDER}/${PROJECT_NAME} is not sufficient, because there
 # might be folders between the module folder and project folder. Like in the
 # Hierachy example.
-PATH_FROM_ROOT_TO_SRC = $(shell p=$(shell pwd); g=$${p\#\#*/${MODULE_FOLDER}}; echo $$g)
+PATH_FROM_ROOT_TO_SRC = $(shell p=$(shell pwd); g=$${p${HASHTAG}${HASHTAG}*/${MODULE_FOLDER}}; echo $$g)
 
 VERILATOR := $(VERILATOR_ROOT)/verilator-docker.sh
 VERILATOR_ARGS := 4.038 ${MODULE_FOLDER}${PATH_FROM_ROOT_TO_SRC} ${PROJECT_ROOT}
