@@ -1,5 +1,5 @@
-`include "../doublesub/Sub.sv"
-`include "delay/Delay.sv"
+`include "../Doublesub/Sub.sv"
+`include "Delay/Delay.sv"
 
 module Hierarchy (
     input clk,

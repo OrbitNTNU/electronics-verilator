@@ -6,7 +6,7 @@ The main contribution of this project is the `verilator.mk` makefile. Include it
 
 The examples show how Verilator can be used to simualate a Verilog circuit. Feel free to add more examples and tests for them.
 
-All examples can be run using the `makefile` at the top level of this repository.
+All examples can be run using the `makefile` at the top level of this repository. Simply type `make` to run the makefile.
 
 ## And
 
