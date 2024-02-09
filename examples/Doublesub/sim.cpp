@@ -7,9 +7,8 @@
 int get_stimuli(std::string filename, int *data);
 
 int main(int argc, char** argv) {
-    VerilatedContext* contextp = new VerilatedContext;
-    contextp->commandArgs(argc, argv);
-    VDoubleSub* top = new VDoubleSub{contextp};
+    VDoubleSub* top = new VDoubleSub;
+    Verilated::commandArgs(argc, argv);
 
     int *operands = new int[200];
     int noperands = get_stimuli(std::string{"operands.data"}, operands);
@@ -29,6 +28,5 @@ int main(int argc, char** argv) {
 
 
     delete top;
-    delete contextp;
     return 0;
 }

@@ -5,9 +5,8 @@
 #include <iostream>
 
 int main(int argc, char** argv) {
-    VerilatedContext* contextp = new VerilatedContext;
-    contextp->commandArgs(argc, argv);
-    VDelay* top = new VDelay{contextp};
+    VDelay* top = new VDelay;
+    Verilated::commandArgs(argc, argv);
 
     int data_in = 0x66234223;
     
@@ -40,6 +39,5 @@ int main(int argc, char** argv) {
     assert(top->delayed_data == data_in);
 
     delete top;
-    delete contextp;
     return 0;
 }

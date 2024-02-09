@@ -5,9 +5,8 @@
 #include <iostream>
 
 int main(int argc, char** argv) {
-    VerilatedContext* contextp = new VerilatedContext;
-    contextp->commandArgs(argc, argv);
-    VHierarchy* top = new VHierarchy{contextp};
+    VHierarchy* top = new VHierarchy;
+    Verilated::commandArgs(argc, argv);
 
     int data_in = 0x66234223;
     int subtract = 22;
@@ -44,6 +43,5 @@ int main(int argc, char** argv) {
     assert(top->data_out == (data_in - subtract));
 
     delete top;
-    delete contextp;
     return 0;
 }
