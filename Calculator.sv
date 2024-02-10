@@ -20,8 +20,3 @@ endmodule
 //00000010*00000010
 //->000000 0&1 0&0 -> 00000000
 //->000000 1&1 1&0 -> 00000010 leftshift-> 00000100
-
-module halfadder (
-    input a,
-    input b
-)
