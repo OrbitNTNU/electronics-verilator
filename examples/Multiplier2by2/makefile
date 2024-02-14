@@ -1,5 +1,5 @@
 VERILATOR_ROOT := ../..
-PROJECT_NAME := Half_adder
+PROJECT_NAME := Multiplier2by2
 SOURCES := *.sv
 SIMFILES := *.cpp
 

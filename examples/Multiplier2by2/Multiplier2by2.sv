@@ -1,3 +1,5 @@
+`include "../Half_adder/Half_adder.sv"
+
 module Multiplier2by2(Prod,A,B);
 
     input [1:0] A,B;

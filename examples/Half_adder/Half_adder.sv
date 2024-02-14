@@ -1,8 +1,8 @@
 /* half_adder
 */
-module Half_adder(a,b,sum,carry);
-    input a, b;
+module Half_adder(A,B,sum,carry);
+    input A, B;
     output sum, carry;
-    xor x1(sum,a,b);
-    and a1(carry,a,b);
+    xor x1(sum,A,B);
+    and a1(carry,A,B);
 endmodule
