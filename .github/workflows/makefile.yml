@@ -15,4 +15,6 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Docker test
-      run: make
+      run: |
+        python3 -m pip install -r requirements.txt
+        make
