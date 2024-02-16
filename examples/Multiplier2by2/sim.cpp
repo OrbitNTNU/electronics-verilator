@@ -1,5 +1,4 @@
 #include "VMultiplier2by2.h"
-#include "VHalf_adder.h"
 #include "verilated.h"
 
 #include <cassert>
@@ -21,9 +20,18 @@ int main(int argc, char** argv) {
     top->trace(trace, 99);
     trace->open("trace.vcd");
 
-    uint8_t stimuli_a[] = { 0b00, 0b00, 0b11, 0b11 };
-    uint8_t stimuli_b[] = { 0b00, 0b11, 0b00, 0b11 };
+    uint8_t stimuli_a[16];
+    uint8_t stimuli_b[16];
+    int counter_to_16 = 0;
+    for (uint8_t i = 0; i <= 0b11; ++i) {       
+        for (uint8_t j = 0; j <= 0b11; ++j) {
+            stimuli_a[counter_to_16] = i;
+            stimuli_b[counter_to_16] = j;
+            counter_to_16++;
+        }
+    }
 
+    int ret = 0;
     for (int i = 0; i < sizeof(stimuli_a) / sizeof(stimuli_a[0]); i++) {
         if (Verilated::gotFinish()) break;
 
@@ -31,8 +39,15 @@ int main(int argc, char** argv) {
         top->B = stimuli_b[i];
         
         top->eval();
-
-        assert(top->Prod == (stimuli_a[i] * stimuli_b[i]));
+        
+        if(top->Prod != (stimuli_a[i] * stimuli_b[i])) {
+            printf("%i\n",i);
+            printf("prod: 0x%x\n", top->Prod);
+            printf("Should be: 0x%x\n", (stimuli_a[i] * stimuli_b[i]));            
+            fflush(stdout);
+            ret += 1;
+            break;
+        }
     
         // For trace; dump all variables
         trace->dump(10*tickcount++);
@@ -45,5 +60,5 @@ int main(int argc, char** argv) {
     delete trace;
 
     delete top;
-    return 0;
+    return ret;
 } 
