@@ -1,6 +1,7 @@
 module Led_blinker
   (
    i_clock,
+   i_reset,
    i_enable,
    i_switch_1,
    i_switch_2,
@@ -8,6 +9,7 @@ module Led_blinker
    );
 
     input i_clock;
+    input i_reset;
     input i_enable;
     input i_switch_1;
     input i_switch_2;
@@ -19,26 +21,39 @@ module Led_blinker
     parameter c_CNT_1HZ   = 12500;
 
     reg [31:0] r_CNT_100HZ = 0;
-    reg [31:0] r_CNT_50HZ = 0;
-    reg [31:0] r_CNT_10HZ = 0;
-    reg [31:0] r_CNT_1HZ = 0;
+    reg [31:0] r_CNT_50HZ  = 0;
+    reg [31:0] r_CNT_10HZ  = 0;
+    reg [31:0] r_CNT_1HZ   = 0;
 
     reg        r_TOGGLE_100HZ = 1'b0;
     reg        r_TOGGLE_50HZ  = 1'b0;
     reg        r_TOGGLE_10HZ  = 1'b0;
     reg        r_TOGGLE_1HZ   = 1'b0;
 
-    reg        r_LED_SELECT;
-    //wire       w_LED_SELECT;
+    reg        r_LED_SELECT = 1'b0;
 
+    always @(posedge i_clock)
+    begin
+        if (i_reset == 1)
+        begin
+            r_CNT_100HZ <= 0;
+            r_CNT_50HZ  <= 0;
+            r_CNT_10HZ  <= 0;
+            r_CNT_1HZ   <= 0;
 
+            r_TOGGLE_100HZ <= 0;
+            r_TOGGLE_50HZ  <= 0;
+            r_TOGGLE_10HZ  <= 0;
+            r_TOGGLE_1HZ   <= 0;
+        end
+    end
 
     always @(posedge i_clock) 
     begin
-        if (c_CNT_100HZ == c_CNT_100HZ - 1)
+        if (r_CNT_100HZ == c_CNT_100HZ - 1)
             begin
                 r_TOGGLE_100HZ <= !r_TOGGLE_100HZ;
-                r_TOGGLE_100HZ <= 0;
+                r_CNT_100HZ <= 0;
             end
         else
             r_CNT_100HZ <= r_CNT_100HZ + 1;
@@ -46,10 +61,10 @@ module Led_blinker
 
     always @(posedge i_clock) 
     begin
-        if (c_CNT_50HZ == c_CNT_50HZ - 1)
+        if (r_CNT_50HZ == c_CNT_50HZ - 1)
             begin
                 r_TOGGLE_50HZ <= !r_TOGGLE_50HZ;
-                r_TOGGLE_50HZ <= 0;
+                r_CNT_50HZ <= 0;
             end
         else
             r_CNT_50HZ <= r_CNT_50HZ + 1;
@@ -57,10 +72,10 @@ module Led_blinker
 
     always @(posedge i_clock) 
     begin
-        if (c_CNT_10HZ == c_CNT_10HZ - 1)
+        if (r_CNT_10HZ == c_CNT_10HZ - 1)
             begin
                 r_TOGGLE_10HZ <= !r_TOGGLE_10HZ;
-                r_TOGGLE_10HZ <= 0;
+                r_CNT_10HZ <= 0;
             end
         else
             r_CNT_10HZ <= r_CNT_10HZ + 1;
@@ -68,10 +83,10 @@ module Led_blinker
 
     always @(posedge i_clock) 
     begin
-        if (c_CNT_1HZ == c_CNT_1HZ - 1)
+        if (r_CNT_1HZ == c_CNT_1HZ - 1)
             begin
                 r_TOGGLE_1HZ <= !r_TOGGLE_1HZ;
-                r_TOGGLE_1HZ <= 0;
+                r_CNT_1HZ <= 0;
             end
         else
             r_CNT_1HZ <= r_CNT_1HZ + 1;
@@ -89,6 +104,5 @@ module Led_blinker
     end
 
     assign o_led_drive = r_LED_SELECT & i_enable;
-
 
 endmodule
