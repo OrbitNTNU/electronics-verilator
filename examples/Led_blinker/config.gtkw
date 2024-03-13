@@ -1,0 +1,32 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Fri Mar  8 17:16:35 2024
+[*]
+[dumpfile] "/home/magnus/ntnu/orbit/biosat-electronics-FPGA/electronics-verilator/examples/Led_blinker/trace.vcd"
+[dumpfile_mtime] "Fri Mar  8 17:13:28 2024"
+[dumpfile_size] 49174
+[savefile] "/home/magnus/ntnu/orbit/biosat-electronics-FPGA/electronics-verilator/examples/Led_blinker/config.gtkw"
+[timestart] 0
+[size] 1850 1016
+[pos] -51 -51
+*0.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] TOP.
+[sst_width] 233
+[signals_width] 166
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+TOP.Led_blinker.i_clock
+TOP.Led_blinker.i_enable
+TOP.Led_blinker.i_reset
+TOP.Led_blinker.i_switch_1
+TOP.Led_blinker.i_switch_2
+TOP.Led_blinker.o_led_drive
+@22
+TOP.Led_blinker.r_CNT_1HZ[31:0]
+TOP.Led_blinker.r_CNT_10HZ[31:0]
+TOP.Led_blinker.r_CNT_50HZ[31:0]
+@23
+TOP.Led_blinker.r_CNT_100HZ[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
